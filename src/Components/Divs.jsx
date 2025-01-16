@@ -1,5 +1,6 @@
 import '../App.css';
 import {Button} from './Buttons.jsx';
+import { handleInput } from './Input.jsx';
 
 function Div(props){
     const {children, cn} = props;
@@ -22,7 +23,7 @@ function DivOpr(props){
 }
 
 function handleClick(e){
-    
+    handleInput(e);
 }
 
 export {Div, DivOpr, handleClick}

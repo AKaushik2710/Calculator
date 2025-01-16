@@ -1,9 +1,12 @@
 import { useRef } from "react";
 
+const myRef = useRef("");
 export default function Input(){
-    const myRef = useRef("");
-    return <input type="text" ref={myRef} onChange={(e)=>{
-        myRef.current=e.target.value;
-        console.log(myRef.current)
-    }}/>
+    return <input type="text" ref={myRef} onChange={(e)=>handleInput(e.target.value)}/>
 }
+
+function handleInput(value){
+    myRef.current = value;
+}
+
+export {handleInput}
