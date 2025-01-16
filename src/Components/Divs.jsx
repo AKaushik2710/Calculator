@@ -22,7 +22,7 @@ function DivOpr(props){
 }
 
 function handleClick(e){
-    console.log(e);
+    
 }
 
 export {Div, DivOpr, handleClick}
