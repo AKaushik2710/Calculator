@@ -18,9 +18,27 @@ function Buttons({count}) {
 }
 
 function Button(props){
-    const {children} = props;
+    const {children, oprt,egRef} = props;
     const handleClick = useContext(Context);
-    return <button onClick={()=>handleClick({children})}>{children}</button>
+    function handleOperations(){
+        if(oprt){
+            handleClick(children);
+        }
+        else{
+            switch (children){
+                case "=":
+                    const current = egRef.current.value;
+                    const operators = [];
+                    for (let x of current){
+                        if (isNaN(x)){
+                            operators.push(x);
+                        }
+                    }
+                    
+            }
+        }
+    }
+    return <button onClick={handleOperations}>{children}</button>
 }
 
 export {Buttons, Button}
