@@ -8,6 +8,14 @@ export default function Input(props){
         handleClick(value,true);
         setResult(egRef.current.value);
     }
+    
+    function handleKeyPress(event) {
+        const allowedKeys = /[0-9+\-*/%]/;
+        if (!allowedKeys.test(event.key)) {
+            event.preventDefault();
+        }
+    }
+
     const handleClick = useContext(Context);
-    return <input type="text" pattern="[0-9+*-/%]" ref={egRef} value={result} onChange={(e)=>handleResult(e.target.value)} />
+    return <input type="text" pattern="[0-9+*-/%]" ref={egRef} value={result} onChange={(e)=>handleResult(e.target.value)} onKeyDown={handleKeyPress} />    
 }

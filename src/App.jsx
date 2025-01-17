@@ -19,7 +19,7 @@ function App() {
     <Div cn="calc" onClick={handleClick} >
       <Input  egRef={myRef}/>
       <DivOpr cn="opr_set_1" child={["AC", "C", "="]} />
-      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} />
+      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef}/>
       <Buttons count={9} />
     </Div>
   </Div>
