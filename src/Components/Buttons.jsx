@@ -1,21 +1,26 @@
 import '../App.css'
-function Buttons({ count, onClick }) {
+import { useContext } from 'react';
+import { Context } from './Context.jsx';
+
+function Buttons({count}) {
     const arr = [];
+    const handleClick = useContext(Context);
     for (let i = 1; i <= count; i++) {
         arr.push(i);
     }
     return (
         <>
             {arr.map((x, index) => (
-                <button key={index} onClick={()=>onClick(x)}>{x}</button>
+                <button key={index} onClick={()=>handleClick(x)}>{x}</button>
             ))}
         </>
     );
 }
 
 function Button(props){
-    const {children, onClick} = props;
-    return <button onClick={onClick}>{children}</button>
+    const {children} = props;
+    const handleClick = useContext(Context);
+    return <button onClick={()=>handleClick({children})}>{children}</button>
 }
 
 export {Buttons, Button}

@@ -1,12 +1,8 @@
-import { useRef } from "react";
+import { useContext } from 'react';
+import { Context } from './Context.jsx';
 
-const myRef = useRef("");
-export default function Input(){
-    return <input type="text" ref={myRef} onChange={(e)=>handleInput(e.target.value)}/>
+export default function Input(props){
+    const {ref} = props;
+    const handleClick = useContext(Context);
+    return <input type="text" ref={ref} onChange={(e)=>handleClick(e.target.value)}/>
 }
-
-function handleInput(value){
-    myRef.current = value;
-}
-
-export {handleInput}
