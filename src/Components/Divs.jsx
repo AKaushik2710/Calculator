@@ -14,7 +14,7 @@ function Div(props){
 }
 
 function DivOpr(props){
-    const {child, cn} = props;
+    const {child, cn,operators=false} = props;
     return <>
     <div className={cn}>
         {child.map((x, index)=>{
@@ -24,8 +24,6 @@ function DivOpr(props){
     </>
 }
 
-function handleClick(e){
-    handleInput(e);
-}
 
-export {Div, DivOpr, handleClick}
+
+export {Div, DivOpr,}

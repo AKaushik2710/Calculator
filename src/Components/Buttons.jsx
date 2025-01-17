@@ -20,7 +20,10 @@ function Buttons({count}) {
 function Button(props){
     const {children} = props;
     const handleClick = useContext(Context);
-    return <button onClick={()=>handleClick({children})}>{children}</button>
+    function handleOperations(){
+        handleClick(children);
+    }
+    return <button onClick={handleOperations}>{children}</button>
 }
 
 export {Buttons, Button}
