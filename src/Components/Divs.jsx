@@ -14,7 +14,7 @@ function Div(props){
 }
 
 function DivOpr(props){
-    const {child, cn,operators=false,egRef} = props;
+    const {child=[], cn,operators=false,egRef} = props;
     return <>
     <div className={cn}>
         {child.map((x, index)=>{
