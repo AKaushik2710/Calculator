@@ -1,5 +1,5 @@
 import '../App.css'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Context } from './Context.jsx';
 
 function Buttons({count}) {
@@ -18,20 +18,29 @@ function Buttons({count}) {
 }
 
 function Button(props){
-    const {children, oprt,egRef} = props;
+    const {children, oprt,egRef, stateVal, stateSetter, handleInput} = props;
     const handleClick = useContext(Context);
-    function handleOperations(){
+    const initialResult = {
+        history:[],
+        characters:[]
+    };
+    const [result, setResult] = useState(initialResult);
+    
+    function handleOperations(e){
         if(oprt){
+            stateSetter(()=>false);
             handleClick(children);
         }
         else{
             const current = egRef.current.value;
-            switch (children){
+            switch (e.target.value){
                 case "=":
                     try {
                         egRef.current.value = current ? eval(current) : 0;
+                        setResult({...result, history : [...result.history, egRef.current.value]});
+                        stateSetter(true);
                     } catch {
-                        confirm.error("Invalid Error")
+                        console.error("Invalid Error")
                     }
                 break;
 
@@ -40,7 +49,7 @@ function Button(props){
                         egRef.current.value = current ? current.slice(0, current.length-1) : 0;
                     }
                     catch{
-                        confirm.error("Invalid Error")
+                        console.error("Invalid Error")
                     }
                 break;
 
@@ -49,13 +58,14 @@ function Button(props){
                         egRef.current.value = 0;
                     }
                     catch{
-                        confirm.error("Invalid Error")
+                        console.error("Invalid Error")
                     }
                 break;
+
             }
         }
     }
-    return <button onClick={handleOperations}>{children}</button>
+    return <button onClick={handleOperations} value={children}>{children}</button>
 }
 
 export {Buttons, Button}

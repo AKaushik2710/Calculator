@@ -14,11 +14,11 @@ function Div(props){
 }
 
 function DivOpr(props){
-    const {child=[], cn,operators=false,egRef} = props;
+    const {child=[], cn,operators=false,egRef, stateVal, stateSetter, handleInput} = props;
     return <>
     <div className={cn}>
         {child.map((x, index)=>{
-            return <Button key={index} oprt={operators} egRef={egRef}>{x}</Button>
+            return <Button key={index} oprt={operators} egRef={egRef} stateVal={stateVal} stateSetter={stateSetter} handleInput={handleInput} >{x}</Button>
         })}
     </div>
     </>
