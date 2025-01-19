@@ -29,13 +29,8 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
-    const {children, oprt,egRef, stateVal, stateSetter, handleInput} = props;
+    const {children, oprt,egRef,setResult, stateSetter, handleInput} = props;
     const handleClick = useContext(Context);
-    const initialResult = {
-        history:[],
-        characters:[]
-    };
-    const [result, setResult] = useState(initialResult);
     
     function handleOperations(e){
         if(oprt){ // children== operators 
@@ -47,9 +42,10 @@ handleInput: Not used
             switch (e.target.value){
                 case "=":
                     try {
-                        egRef.current.value = current ? eval(current) : 0; // set current ref value to 0 if ref is empty 
-                        setResult({...result, history : [...result.history, egRef.current.value]}); // creating result history 
-                        stateSetter(true); // setting after result state true
+                        const result = current ? eval(current) : 0;
+                        egRef.current.value =  result;// set current ref value to 0 if ref is empty 
+                        stateSetter(true);
+                        setResult(result); // creating result history  // setting after result state true
                     } catch {
                         console.error("Invalid Error")
                     }

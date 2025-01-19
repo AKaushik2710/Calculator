@@ -14,6 +14,15 @@ function App() {
 // State to set value to input Element 
   const [input, setInput] = useState(myRef.current.value);
 
+  const initialResult = {
+    history:[],
+    characters:[]
+  };
+  const [result, setResult] = useState(initialResult);
+
+  function resultSetter(val){
+    setResult({...result, history:[...result.history, val]});
+  }
 // Input value setting function 
   function handleInput(value, setter){
     handleClick(value,setter);
@@ -41,13 +50,13 @@ function App() {
   <Div cn="holder">
     <Div cn="calc" onClick={handleClick} >
       <Input  egRef={myRef} input={input} handleInput={handleInput} />
-      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} stateVal={afterCalc} stateSetter={handleState} handleInput={handleInput} />
-      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} stateSetter={handleState}/>
+      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} stateVal={afterCalc} setResult={resultSetter} stateSetter={handleState} handleInput={handleInput} />
+      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={resultSetter} stateSetter={handleState}/>
       <Buttons count={9} />
     </Div>
     <Div cn="history">
       <Button>{"Back"}</Button>
-
+      <ul>{result.history.map(x=> <li>(x)</li>)}</ul>
     </Div>
   </Div>
 
