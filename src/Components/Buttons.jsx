@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Context } from './Context.jsx';
 
 // Render Numeric Buttons
-function Buttons({count}) {
+function Buttons({count, indexSetter}) {
     const arr = [];
 // Using context for Click Functionality 
     const handleClick = useContext(Context);
@@ -13,7 +13,10 @@ function Buttons({count}) {
     return (
         <>
             {arr.map((x, index) => (
-                <button key={index} onClick={()=>handleClick(x)}>{x}</button>
+                <button key={index} onClick={()=>{
+                    handleClick(x);
+                    indexSetter(2);
+                }}>{x}</button>
             ))}
         </>
     );
@@ -29,12 +32,13 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
-
-    const {children, oprt,egRef, setResult, stateSetter, onClick} = props;
+    const {children, oprt,egRef, setResult, stateSetter, onClick, indexSetter} = props;
     const handleClick = useContext(Context);
 
     function handleOperations(e){
+        
         if(oprt){ // children== operators 
+            indexSetter(2); // setting index to 1 for back functionality
             stateSetter(()=>false); // determining value is before result 
             handleClick(children); // click functionality 
         }

@@ -13,7 +13,7 @@ function App() {
     characters:[]
 };
 
-const [index, setIndex] = useState(1);
+const [index, setIndex] = useState(2);
 const [result, setResult] = useState(initialResult);
 
 function handleResult(value, result=false){
@@ -67,7 +67,7 @@ console.log(result);
 function handleChange(back=false){
   if(back){
     console.log("Imherer");
-    setIndex(i => i +1);
+    setIndex(index +1);
     console.log(index);
     myRef.current.value = result.characters[result.characters.length - index];
   }
@@ -76,9 +76,9 @@ function handleChange(back=false){
   <Div cn="holder">
     <Div cn="calc" onClick={handleClick} >
       <Input  egRef={myRef} input={input} handleInput={handleInput} />
-      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} />
-      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState}/>
-      <Buttons count={9} />
+      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
+      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
+      <Buttons count={9} indexSetter={setIndex} />
     </Div>
     <Div cn="history">
       <Button onClick={handleChange} egRef={myRef}>{"Back"}</Button>

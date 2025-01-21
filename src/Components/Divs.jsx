@@ -27,11 +27,11 @@ function Div(props){
 
 // Non-Numerical Button Holder 
 function DivOpr(props){
-    const {child=[], cn,operators=false,egRef, stateSetter, setResult} = props;
+    const {child=[], cn,operators=false,egRef, stateSetter, setResult, indexSetter} = props;
     return <>
     <div className={cn}>
         {child.map((x, index)=>{
-            return <Button key={index} oprt={operators} egRef={egRef} setResult={setResult} stateSetter={stateSetter} >{x}</Button>
+            return <Button key={index} oprt={operators} egRef={egRef} setResult={setResult} indexSetter={indexSetter} stateSetter={stateSetter} >{x}</Button>
         })}
     </div>
     </>
