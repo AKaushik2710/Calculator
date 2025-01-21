@@ -29,10 +29,9 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
+
     const {children, oprt,egRef, setResult, stateSetter, onClick} = props;
     const handleClick = useContext(Context);
-
-    
 
     function handleOperations(e){
         if(oprt){ // children== operators 
@@ -43,6 +42,7 @@ handleInput: Not used
             let current = egRef.current ? egRef.current.value : ''; // getting current input for non-input operations
             switch (e.target.value){
                 case "=":
+
                     try { 
                         const result = current ? eval(current) : 0;
                         if(result % 1 !== 0){
