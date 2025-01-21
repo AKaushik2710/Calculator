@@ -8,6 +8,23 @@ function App() {
 //Initializing a Ref
   const myRef = useRef("");
 
+  const initialResult = {
+    history:[],
+    characters:[]
+};
+
+const [index, setIndex] = useState(1);
+const [result, setResult] = useState(initialResult);
+
+function handleResult(value, result=false){
+  if(result){
+  setResult(prevresult => ({history:[...prevresult.history, value], characters:[...prevresult.characters, value]}));
+  }
+  else{
+    setResult(prevresult => ({...prevresult,characters:[...prevresult.characters, value]}));
+  }
+}
+console.log(result);
 // State to Determine whether click is after result 
   const [afterCalc, setAfterResult] = useState(false);
 
@@ -36,6 +53,7 @@ function App() {
 
 // Setting Click Functionality 
   function handleClick(value, input=false){
+    handleResult(value, false);
     if(afterCalc){ // setting after result click functionality to false for after result click 
       setAfterResult(false);
     }
@@ -45,18 +63,26 @@ function App() {
     else{ // continuing the value where it left 
     myRef.current.value!=0? myRef.current.value += value : myRef.current.value = value;
   }
+}
+function handleChange(back=false){
+  if(back){
+    console.log("Imherer");
+    setIndex(i => i +1);
+    console.log(index);
+    myRef.current.value = result.characters[result.characters.length - index];
   }
+}
   return <>
   <Div cn="holder">
     <Div cn="calc" onClick={handleClick} >
       <Input  egRef={myRef} input={input} handleInput={handleInput} />
-      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} stateVal={afterCalc} setResult={resultSetter} stateSetter={handleState} handleInput={handleInput} />
-      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={resultSetter} stateSetter={handleState}/>
+      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} />
+      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState}/>
       <Buttons count={9} />
     </Div>
     <Div cn="history">
-      <Button>{"Back"}</Button>
-      <ul>{result.history.map(x=> <li>(x)</li>)}</ul>
+      <Button onClick={handleChange} egRef={myRef}>{"Back"}</Button>
+      <div>{result.history.map(x=>(x))}</div>
     </Div>
   </Div>
 

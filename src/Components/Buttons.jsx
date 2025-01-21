@@ -1,5 +1,5 @@
 import '../App.css'
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Context } from './Context.jsx';
 
 // Render Numeric Buttons
@@ -29,24 +29,31 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
-    const {children, oprt,egRef,setResult, stateSetter, handleInput} = props;
+
+    const {children, oprt,egRef, setResult, stateSetter, onClick} = props;
     const handleClick = useContext(Context);
-    
+
     function handleOperations(e){
         if(oprt){ // children== operators 
             stateSetter(()=>false); // determining value is before result 
             handleClick(children); // click functionality 
         }
         else{
-            const current = egRef.current.value; // getting current input for non-input operations
+            let current = egRef.current ? egRef.current.value : ''; // getting current input for non-input operations
             switch (e.target.value){
                 case "=":
-                    try {
+
+                    try { 
                         const result = current ? eval(current) : 0;
-                        egRef.current.value =  result;// set current ref value to 0 if ref is empty 
-                        stateSetter(true);
-                        setResult(result); // creating result history  // setting after result state true
-                    } catch {
+                        if(result % 1 !== 0){
+                            egRef.current.value = result.toFixed(2); // set current ref value to 0 if ref is empty 
+                        }
+                        else{
+                            egRef.current.value = result; // set result to input field
+                        }
+                        stateSetter(true); // setting after result state true
+                        setResult(egRef.current.value, true); // creating result history 
+                    } catch(error){
                         console.error("Invalid Error")
                     }
                 break;
@@ -55,7 +62,7 @@ handleInput: Not used
                     try{
                         egRef.current.value = current ? current.slice(0, current.length-1) : 0; // removing a single character from input 
                     }
-                    catch{
+                    catch(error){
                         console.error("Invalid Error")
                     }
                 break;
@@ -64,11 +71,20 @@ handleInput: Not used
                     try{
                         egRef.current.value = 0; // removing all characters from input 
                     }
-                    catch{
+                    catch(error){
                         console.error("Invalid Error")
                     }
                 break;
 
+                case "Back" :
+                    try{
+                        console.log("wdfdf")
+                        onClick(true); // setting back functionality
+                    }
+                    catch(error){
+                        console.error("Invalid Error")
+                    }
+                break;
             }
         }
     }
