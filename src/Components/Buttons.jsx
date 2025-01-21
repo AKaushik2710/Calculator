@@ -35,8 +35,6 @@ handleInput: Not used
     const {children, oprt,egRef, setResult, stateSetter, onClick, indexSetter} = props;
     const handleClick = useContext(Context);
 
-
-
     function handleOperations(e){
         
         if(oprt){ // children== operators 
