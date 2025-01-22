@@ -82,8 +82,15 @@ handleInput: Not used
 
                 case "Back" :
                     try{
-                        console.log("wdfdf")
                         onClick(true); // setting back functionality
+                    }
+                    catch(error){
+                        console.error("Invalid Error")
+                    }
+                break;
+                    case "Forward" : 
+                    try{
+                        onClick(); // setting back functionality
                     }
                     catch(error){
                         console.error("Invalid Error")

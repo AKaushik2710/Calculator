@@ -56,6 +56,7 @@ function App() {
     }
   }
   function handleChange(back=false){
+    console.log(result.characters, index);
     if(back){
       setIndex(index +1);
       const recursor = {
@@ -70,6 +71,21 @@ function App() {
       const backIndex = (result.characters.length - index) >= 0 ? recursor.resume() : recursor.restart(); 
       myRef.current.value = result.characters[backIndex];
     }
+    else{
+      const recursor = {
+        resume : ()=>{
+          setIndex(index - 1);
+          return result.characters.length -index +2;
+        },
+        restart : ()=>{
+          const marker = (result.characters.length - index +2) - result.characters.length;
+          marker < 1 ? setIndex(index -1) : setIndex(result.characters.length);
+          return marker;
+        }
+      }
+      const backIndex = (result.characters.length - index +2) < result.characters.length ? recursor.resume() : recursor.restart(); 
+      myRef.current.value = result.characters[backIndex];
+    }
   }
   return <>
   <Div cn="holder">
@@ -81,6 +97,7 @@ function App() {
     </Div>
     <Div cn="history">
       <Button onClick={handleChange} egRef={myRef}>{"Back"}</Button>
+      <Button onClick={handleChange} egRef={myRef}>{"Forward"}</Button>
       <div>{result.history.map(x=>(x))}</div>
     </Div>
   </Div>
