@@ -11,35 +11,26 @@ function App() {
   const initialResult = {
     history:[],
     characters:[]
-};
-
-const [index, setIndex] = useState(2);
-const [result, setResult] = useState(initialResult);
-
-function handleResult(value, result=false){
-  if(result){
-  setResult(prevresult => ({history:[...prevresult.history, value], characters:[...prevresult.characters, value]}));
-  }
-  else{
-    setResult(prevresult => ({...prevresult,characters:[...prevresult.characters, value]}));
-  }
-}
-console.log(result);
-// State to Determine whether click is after result 
-  const [afterCalc, setAfterResult] = useState(false);
-
-// State to set value to input Element 
-  const [input, setInput] = useState(myRef.current.value);
-
-  const initialResult = {
-    history:[],
-    characters:[]
   };
+
+  const [index, setIndex] = useState(2);
   const [result, setResult] = useState(initialResult);
 
-  function resultSetter(val){
-    setResult({...result, history:[...result.history, val]});
+  // State to Determine whether click is after result 
+  const [afterCalc, setAfterResult] = useState(false);
+
+  // State to set value to input Element 
+  const [input, setInput] = useState(myRef.current.value);
+
+  function handleResult(value, result=false){
+    if(result){
+    setResult(prevresult => ({history:[...prevresult.history, value], characters:[...prevresult.characters, value]}));
+    }
+    else{
+      setResult(prevresult => ({...prevresult,characters:[...prevresult.characters, value]}));
+    }
   }
+
 // Input value setting function 
   function handleInput(value, setter){
     handleClick(value,setter);
@@ -62,16 +53,24 @@ console.log(result);
     }
     else{ // continuing the value where it left 
     myRef.current.value!=0? myRef.current.value += value : myRef.current.value = value;
+    }
   }
-}
-function handleChange(back=false){
-  if(back){
-    console.log("Imherer");
-    setIndex(index +1);
-    console.log(index);
-    myRef.current.value = result.characters[result.characters.length - index];
+  function handleChange(back=false){
+    if(back){
+      setIndex(index +1);
+      const recursor = {
+        resume : ()=>{
+          return result.characters.length - index;
+        },
+        restart : ()=>{
+          setIndex(2);
+          return result.characters.length - 1;
+        }
+      }
+      const backIndex = (result.characters.length - index) >= 0 ? recursor.resume() : recursor.restart(); 
+      myRef.current.value = result.characters[backIndex];
+    }
   }
-}
   return <>
   <Div cn="holder">
     <Div cn="calc" onClick={handleClick} >
@@ -85,7 +84,6 @@ function handleChange(back=false){
       <div>{result.history.map(x=>(x))}</div>
     </Div>
   </Div>
-
   </>
 }
 
