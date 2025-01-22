@@ -31,6 +31,15 @@ console.log(result);
 // State to set value to input Element 
   const [input, setInput] = useState(myRef.current.value);
 
+  const initialResult = {
+    history:[],
+    characters:[]
+  };
+  const [result, setResult] = useState(initialResult);
+
+  function resultSetter(val){
+    setResult({...result, history:[...result.history, val]});
+  }
 // Input value setting function 
   function handleInput(value, setter){
     handleClick(value,setter);
