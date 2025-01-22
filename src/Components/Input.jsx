@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { Context } from './Context.jsx';
 
 export default function Input(props){
 /*
@@ -11,7 +9,7 @@ handleInput : setting function for input
     
 // allow only specified regex in input field
     function handleKeyPress(event) {
-        const allowedKeys = /[0-9+\-*/%]/;
+        const allowedKeys = /[0-9+\-*./%]/;
         if (!allowedKeys.test(event.key)) {
             event.preventDefault();
         }

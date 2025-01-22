@@ -31,7 +31,7 @@ function DivOpr(props){
     return <>
     <div className={cn}>
         {child.map((x, index)=>{
-            return <Button key={index} oprt={operators} egRef={egRef} setResult={setResult} indexSetter={indexSetter} stateSetter={stateSetter} >{x}</Button>
+            return <Button key={index} id={cn+index} oprt={operators} egRef={egRef} setResult={setResult} indexSetter={indexSetter} stateSetter={stateSetter} >{x}</Button>
         })}
     </div>
     </>

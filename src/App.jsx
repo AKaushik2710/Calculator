@@ -2,18 +2,23 @@ import { useState, useRef} from 'react'
 import {Div, DivOpr} from './Components/Divs.jsx'
 import {Buttons, Button} from './Components/Buttons.jsx'
 import Input from './Components/Input.jsx'
+import './App.css'
 
 // App Displayer 
 function App() {
-//Initializing a Ref
+  //Initializing a Ref
   const myRef = useRef("");
 
+  // History Grabber
   const initialResult = {
     history:[],
     characters:[]
   };
 
+  // Index for History Manipulation
   const [index, setIndex] = useState(2);
+
+  // Result State
   const [result, setResult] = useState(initialResult);
 
   // State to Determine whether click is after result 
@@ -22,6 +27,7 @@ function App() {
   // State to set value to input Element 
   const [input, setInput] = useState(myRef.current.value);
 
+  // Setting Result History
   function handleResult(value, result=false){
     if(result){
     setResult(prevresult => ({history:[...prevresult.history, value], characters:[...prevresult.characters, value]}));
@@ -31,18 +37,18 @@ function App() {
     }
   }
 
-// Input value setting function 
+  // Input value setting function 
   function handleInput(value, setter){
     handleClick(value,setter);
     setInput(myRef.current.value);
   }
 
-// Setting state to determine after result click functionality 
+  // Setting state to determine after result click functionality 
   function handleState(val){
-    setAfterResult(val);
+      setAfterResult(val);
   }
 
-// Setting Click Functionality 
+  // Setting Click Functionality 
   function handleClick(value, input=false){
     handleResult(value, false);
     if(afterCalc){ // setting after result click functionality to false for after result click 
@@ -55,9 +61,12 @@ function App() {
     myRef.current.value!=0? myRef.current.value += value : myRef.current.value = value;
     }
   }
+
+  // Setting Back and Forward Functionality
   function handleChange(back=false){
+    handleState(false);
     console.log(result.characters, index);
-    if(back){
+    if(back){ // Back Functionality
       setIndex(index +1);
       const recursor = {
         resume : ()=>{
@@ -71,7 +80,7 @@ function App() {
       const backIndex = (result.characters.length - index) >= 0 ? recursor.resume() : recursor.restart(); 
       myRef.current.value = result.characters[backIndex];
     }
-    else{
+    else{ // Forward Functionality
       const recursor = {
         resume : ()=>{
           setIndex(index - 1);
@@ -92,13 +101,16 @@ function App() {
     <Div cn="calc" onClick={handleClick} >
       <Input  egRef={myRef} input={input} handleInput={handleInput} />
       <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
-      <DivOpr cn="opr_set_2" child={["-", "+", "/", "*"]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
-      <Buttons count={9} indexSetter={setIndex} />
+      <DivOpr cn="opr_set_2" child={["+", "-", "/", "*", "."]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
+      <Buttons cn="numbtns" count={9} indexSetter={setIndex} />
     </Div>
-    <Div cn="history">
-      <Button onClick={handleChange} egRef={myRef}>{"Back"}</Button>
-      <Button onClick={handleChange} egRef={myRef}>{"Forward"}</Button>
-      <div>{result.history.map(x=>(x))}</div>
+    <Div cn="msc-function">
+      <Button onClick={handleChange} id={"back"} egRef={myRef}>{"<="}</Button>
+      <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button>
+      <ul className='history'>{result.history.map(x=><li key={x} onClick={()=>{
+        myRef.current.value = x;
+        handleState(false);
+      }}>{x}</li>)}</ul>
     </Div>
   </Div>
   </>

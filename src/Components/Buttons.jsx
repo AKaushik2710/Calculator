@@ -3,22 +3,22 @@ import { useContext } from 'react';
 import { Context } from './Context.jsx';
 
 // Render Numeric Buttons
-function Buttons({count, indexSetter}) {
+function Buttons({count, indexSetter, cn}) {
     const arr = [];
 // Using context for Click Functionality 
     const handleClick = useContext(Context);
-    for (let i = 1; i <= count; i++) {
+    for (let i = 0; i <= count; i++) {
         arr.push(i);
     }
     return (
-        <>
+        <div className={"nums"}>
             {arr.map((x, index) => (
-                <button key={index} onClick={()=>{
+                <button key={index} className={cn} id={cn + x} onClick={()=>{
                     handleClick(x);
                     indexSetter(2);
                 }}>{x}</button>
             ))}
-        </>
+        </div>
     );
 }
 
@@ -32,9 +32,8 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
-    const {children, oprt,egRef, setResult, stateSetter, onClick, indexSetter} = props;
+    const {children, id, oprt,egRef, setResult, stateSetter, onClick, indexSetter} = props;
     const handleClick = useContext(Context);
-
     function handleOperations(e){
         
         if(oprt){ // children== operators 
@@ -80,26 +79,26 @@ handleInput: Not used
                     }
                 break;
 
-                case "Back" :
+                case "<=" :
                     try{
-                        onClick(true); // setting back functionality
+                        onClick(true); // setting undo functionality
                     }
                     catch(error){
-                        console.error("Invalid Error")
+                        console.error("Invalid Error");
                     }
                 break;
-                    case "Forward" : 
+                case "=>" : 
                     try{
-                        onClick(); // setting back functionality
+                        onClick(); // setting redo functionality
                     }
                     catch(error){
-                        console.error("Invalid Error")
+                        console.error("Invalid Error");
                     }
                 break;
             }
         }
     }
-    return <button onClick={handleOperations} value={children}>{children}</button>
+    return <button onClick={handleOperations} id={id} value={children}>{children}</button>
 }
 
 export {Buttons, Button}
