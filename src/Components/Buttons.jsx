@@ -32,8 +32,7 @@ stateSetter : state setting function to check whether input value is after resul
 stateVal : value is after result or not 
 handleInput: Not used
 */
-
-    const {children, oprt,egRef, setResult, stateSetter, onClick} = props;
+    const {children, oprt,egRef, setResult, stateSetter, onClick, indexSetter} = props;
     const handleClick = useContext(Context);
 
     function handleOperations(e){
@@ -83,8 +82,15 @@ handleInput: Not used
 
                 case "Back" :
                     try{
-                        console.log("wdfdf")
                         onClick(true); // setting back functionality
+                    }
+                    catch(error){
+                        console.error("Invalid Error")
+                    }
+                break;
+                case "Forward" : 
+                    try{
+                        onClick(); // setting back functionality
                     }
                     catch(error){
                         console.error("Invalid Error")
