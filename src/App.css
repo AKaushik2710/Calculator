@@ -154,3 +154,11 @@ button{
   font-weight: 900;
   overflow-y: scroll;
 }
+
+.history > p{
+  margin: 0;
+  padding: 8px;
+}
+.history > p:hover{
+  background-color: rgba(225, 210, 0, 0.6);
+}
