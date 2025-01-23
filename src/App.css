@@ -116,8 +116,9 @@ button{
 
 #opr_set_10{
   position: absolute;
-  transform: translate(-107%, -608%); 
-  font-size: 0.8rem;
+  transform: translate(-102%, -610%); 
+  font-size: 1.3rem;
+  width: 24.5dvw;
   text-align: center;
 }
 
@@ -132,5 +133,24 @@ button{
   height: 3dvh;
   font-size: 0.7rem;
   text-align: center;
+}
 
+#hist{
+  transform: translate(17%, 440%); 
+  width: 10dvw;
+  height: 3dvh;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.history{
+  position: absolute;
+  height: 52dvh;
+  width: 63dvw;
+  top: 24dvh;
+  border-radius: 0 0 10px 10px;
+  background-color: rgb(255, 240, 25);
+  color: rgba(105, 1, 70, 0.702);
+  font-weight: 900;
+  overflow-y: scroll;
 }

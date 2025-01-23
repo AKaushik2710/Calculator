@@ -21,6 +21,8 @@ function App() {
   // Result State
   const [result, setResult] = useState(initialResult);
 
+  const [history, setHistory] = useState(false);
+
   // State to Determine whether click is after result 
   const [afterCalc, setAfterResult] = useState(false);
 
@@ -107,11 +109,9 @@ function App() {
     <Div cn="msc-function">
       <Button onClick={handleChange} id={"back"} egRef={myRef}>{"<="}</Button>
       <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button>
-      <ul className='history'>{result.history.map(x=><li key={x} onClick={()=>{
-        myRef.current.value = x;
-        handleState(false);
-      }}>{x}</li>)}</ul>
+      <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button>
     </Div>
+    {history ? <Div cn="history">{result.history.map((val, index) => <p key={index}>{val}</p>)}</Div> : null}
   </Div>
   </>
 }
