@@ -64,6 +64,10 @@ function App() {
     }
   }
 
+  function handleHistory(val){
+    handleState(false);
+    myRef.current.value = val;
+  }
   // Setting Back and Forward Functionality
   function handleChange(back=false){
     handleState(false);
@@ -111,7 +115,7 @@ function App() {
       <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button>
       <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button>
     </Div>
-    {history ? <Div cn="history">{result.history.map((val, index) => <p key={index}>{val}</p>)}</Div> : null}
+    {history ? <Div cn="history">{result.history.map((val, index) => <p key={index} onClick={()=> handleHistory(val)}>{val}</p>)}</Div> : null}
   </Div>
   </>
 }
