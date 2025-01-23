@@ -45,7 +45,6 @@ handleInput: Not used
             let current = egRef.current ? egRef.current.value : ''; // getting current input for non-input operations
             switch (e.target.value){
                 case "=":
-
                     try { 
                         const result = current ? eval(current) : 0;
                         if(result % 1 !== 0){
