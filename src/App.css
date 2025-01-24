@@ -1,4 +1,5 @@
-body{
+/* Laptop Screens */
+body{ /* HTML Body */
   background-color: black;
   color: white;
   display: flex;
@@ -8,6 +9,9 @@ body{
   margin: 0; /* Remove default margin */
   box-sizing: border-box;
 }
+
+@media screen and (max-width : 400px) {
+  
 
 .holder{
   display: flex;
@@ -161,4 +165,5 @@ button{
 }
 .history > p:hover{
   background-color: rgba(225, 210, 0, 0.6);
+}
 }
