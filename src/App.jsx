@@ -103,19 +103,19 @@ function App() {
     }
   }
   return <>
-  <Div cn="holder">
-    <Div cn="calc" onClick={handleClick} >
-      <Input  egRef={myRef} input={input} handleInput={handleInput} />
-      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
-      <DivOpr cn="opr_set_2" child={["+", "-", "/", "*", "."]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} />
-      <Buttons cn="numbtns" count={9} indexSetter={setIndex} />
+  <Div cn="holder"> // Parent Div Holder 
+    <Div cn="calc" onClick={handleClick} > // Calculation Functionality Div
+      <Input  egRef={myRef} input={input} handleInput={handleInput} /> // Input Field 
+      <DivOpr cn="opr_set_1" child={["AC", "C", "="]} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} /> // Assignments 
+      <DivOpr cn="opr_set_2" child={["+", "-", "/", "*", "."]} operators={true} egRef={myRef} setResult={handleResult} stateSetter={handleState} indexSetter={setIndex} /> // Arithmetic Operations 
+      <Buttons cn="numbtns" count={9} indexSetter={setIndex} /> // Numbers 
     </Div>
-    <Div cn="msc-function">
-      <Button onClick={handleChange} id={"back"} egRef={myRef}>{"<="}</Button>
-      <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button>
-      <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button>
+    <Div cn="msc-function"> // Miscellaneous Operations i.e. UNDO, REDO, HISTORY 
+      <Button onClick={handleChange} id={"back"} egRef={myRef}>{"<="}</Button> // Undo Functionality 
+      <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button> // Redo Functionality 
+      <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button> // History Activation Button 
     </Div>
-    {history ? <Div cn="history">{result.history.map((val, index) => <p key={index} onClick={()=> handleHistory(val)}>{val}</p>)}</Div> : null}
+    {history ? <Div cn="history">{result.history.map((val, index) => <p key={index} onClick={()=> handleHistory(val)}>{val}</p>)}</Div> : null} // HISTORY DISPLAY 
   </Div>
   </>
 }
