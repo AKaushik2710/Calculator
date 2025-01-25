@@ -113,7 +113,7 @@ function App() {
     <Div cn="msc-function"> // Miscellaneous Operations i.e. UNDO, REDO, HISTORY 
       <Button onClick={handleChange} id={"back"} egRef={myRef}>{"<="}</Button> // Undo Functionality 
       <Button onClick={handleChange} id={"for"} egRef={myRef}>{"=>"}</Button> // Redo Functionality 
-      <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button> // History Activation Button 
+      <button onClick={()=> setHistory(!history)} id={"hist"}>{"hist"}</button> {// History Activation Button }
     </Div>
     {history ? <Div cn="history">{result.history.map((val, index) => <p key={index} onClick={()=> handleHistory(val)}>{val}</p>)}</Div> : null} // HISTORY DISPLAY 
   </Div>
